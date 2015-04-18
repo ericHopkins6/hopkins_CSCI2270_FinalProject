@@ -3,6 +3,9 @@ All-Star Arena
 Eric Hopkins
 4/13/15
 
+This file will reference public functions whose more complete descriptions can be found here:
+https://github.com/ericHopkins6/hopkins_CSCI2270_FinalProject/blob/master/documentation.txt
+
 Summary:
 	This is a battle arena game.  The characters are pre-set and can be viewed
 from the opening screen, along with all their fighting statistics.  The user then chooses which
