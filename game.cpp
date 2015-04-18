@@ -103,6 +103,15 @@ void game::userPick(int num)
 				else if(j == masterListSize-1)
 					cout << "Character not found\n" << endl;
 			}
+			for(int j = 0; j < userListSize; j++)
+			{
+				if(name == userList[j].name)
+				{
+					cout << "You've already chosen that character!\n" << endl;
+					found = false;
+					break;
+				}
+			}
 		}
 		userList[i] = masterList[j];
 	}
@@ -110,11 +119,31 @@ void game::userPick(int num)
 }
 void game::compPick()
 {
+	figure* tempList = new figure[masterListSize];
+	int k = 0;
+	bool found = false;
+	for(int i = 0; i < masterListSize; i++)
+	{
+		found = false;
+		for(int j = 0; j < userListSize; j++)
+		{
+			if(masterList[i].name == userList[j].name)
+			{
+				found = true;
+				break;
+			}
+		}
+		if(!found)
+		{
+			tempList[k]=masterList[i];
+			k++;
+		}
+	}
 	compList = new figure[compListSize];
 	for(int i = 0; i < compListSize; i++)
 	{
 		srand(time(NULL));
-		compList[i]=masterList[(rand()+i*4)%10];
+		compList[i] = tempList[(rand()+i*4)%(masterListSize-userListSize)];
 	}
 }
 void game::resetUserPicks()
@@ -186,45 +215,39 @@ void game::displayStats(string name)
 void game::battle()
 {
 	string input = "";
-	string figure = "";
 	int i = 0;
 	bool found = false;
-	while(input != "2")
+	while(input != "concede")
 	{
-		cout << "Your opponent is " << compList[0].name << "\n" << endl;
-		cout << "1. Pick your fighter" << endl;
-		cout << "2. Concede\n" << endl;
+		i = 0;
+		cout << "Your next opponent is " << compList[0].name << "\n" << endl;
+		cout << "Enter your next fighter or type \"concede\"\n" << endl;
+		printUserList();
 		getline(cin, input);
 		cout << endl;
-		if(input == "1")
+		if(input == "concede")
 		{
-			while(!found)
-			{
-				found = false;
-				printUserList();
-				getline(cin, figure);
-				cout << endl;
-				for(int i = 0; i < userListSize; i++)
-				{
-					if(userList[i].name == figure)
-					{
-						found = true;
-						break;
-					}
-				}
-				if(found)
-					break;
-				cout << "You don't have that character!" << endl;
-			}
-			result(figure);
-		}
-		else if(input == "2")
-		{
-			cout << "You conceded. The computer wins!\n" << endl;
+			cout << "You conceded. The computer wins!" << endl;
+			cout << "Resetting your inventory ... \n" << endl;
 			resetUserPicks();
 			resetCompPicks();
 			return;
 		}
+		found = false;
+		for(; i < userListSize; i++)
+		{
+			if(userList[i].name == input)
+			{
+				found = true;
+				break;
+			}
+		}
+		if(!found)
+		{
+			cout << "You don't have that character!" << endl;
+			return battle();
+		}
+		result(userList[i]);
 		if(compListSize == 0)
 		{
 			cout << "You have won the battle! Congratulations!\n" << endl;
@@ -242,14 +265,14 @@ void game::battle()
 		found = false;
 	}
 }
-void game::removeFigure(string figure, string list)
+void game::removeFigure(figure figure1, string list)
 {
 	int i = 0;
 	if(list == "user")
 	{
 		for(i = 0; i < userListSize; i++)
 		{
-			if(userList[i].name == figure)
+			if(userList[i].name == figure1.name)
 				break;
 		}
 		for(;i < userListSize-1;i++)
@@ -263,64 +286,58 @@ void game::removeFigure(string figure, string list)
 		compListSize--;
 	}
 }
-void game::result(string figure1)
+void game::result(figure userPick)
 {
 	bool userSpeed = false;
 	bool compSpeed = false;
-	figure userPick;
-	for(int i = 0;i < userListSize; i++)
-	{
-		if(userList[i].name == figure1)
-		{
-			userPick = userList[i];
-			break;
-		}
-	}
 	figure compPick = compList[0];
 	srand(time(NULL));
-	int random = rand()%20;
-	if(compPick.special > random&&userPick.special > random)
+	int compRandom = rand()%28;
+	int userRandom = rand()%28;
+	if(compPick.special > compRandom&&userPick.special > userRandom)
 	{
 		cout << "Both characters were too amazing to lose. Draw!" << endl;
 		return;
 	}
-	if(userPick.special > random)
+	if(userPick.special > userRandom)
 	{
 		cout << "Luck was on your character's side. You win!" << endl;
-		removeFigure(compPick.name, "comp");
+		removeFigure(compPick, "comp");
 		return;
 	}
-	if(compPick.special > random)
+	if(compPick.special > compRandom)
 	{
 		cout << "Luck was on the computer character's side. You lose." << endl;
-		removeFigure(userPick.name, "user");
+		removeFigure(userPick, "user");
 		return;
 	}
-	if(userPick.speed > random)
+	userRandom = rand()%15;
+	compRandom = rand()%15;
+	if(userPick.speed > userRandom)
 	{
-		userPick.attack++;
-		userPick.defense++;
+		userPick.attack+=2;
+		userPick.defense+=2;
 		userSpeed = true;
-		cout << "Due to your speed, your attack and defense have each been raised one point!" << endl;
+		cout << "Due to your speed, your attack and defense have each been raised two points!" << endl;
 	}
-	if(compPick.speed > random)
+	if(compPick.speed > compRandom)
 	{
-		compPick.attack++;
-		compPick.defense++;
+		compPick.attack+=2;
+		compPick.defense+=2;
 		compSpeed = true;
-		cout << "Due to the computer's speed, their attack and defense have each been raised one point" << endl;
+		cout << "Due to the computer's speed, their attack and defense have each been raised two points." << endl;
 	}
 	int user = userPick.attack - compPick.defense;
 	int comp = compPick.attack - userPick.defense;
 	if(user > comp)
 	{
 		cout << "You have defeated " << compPick.name << "!" << endl;
-		removeFigure(compPick.name, "comp");
+		removeFigure(compPick, "comp");
 	}
 	else if(comp > user)
 	{
 		cout << "The computer has defeated your " << userPick.name << "." << endl;
-		removeFigure(userPick.name, "user");
+		removeFigure(userPick, "user");
 	}
 	else
 	{
@@ -328,12 +345,12 @@ void game::result(string figure1)
 	}
 	if(userSpeed)
 	{
-		userPick.attack--;
-		userPick.defense--;
+		userPick.attack-=2;
+		userPick.defense-=2;
 	}
 	if(compSpeed)
 	{
-		compPick.attack--;
-		compPick.defense--;
+		compPick.attack-=2;
+		compPick.defense-=2;
 	}
 }

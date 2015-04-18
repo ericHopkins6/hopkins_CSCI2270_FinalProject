@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
 	string sizeStr = "";
 	string name = "";
 	int size = 0;
-	cout << "\nWelcome to All-Time Arena!" << endl;
+	cout << "\nWelcome to All-Star Arena!" << endl;
 	while(input != "4")
 	{
 		cout << "\n1. See entire inventory" << endl;
@@ -49,13 +49,13 @@ int main(int argc, char* argv[])
 				if(input == "1")
 				{
 					size = 11;
-					while(size>10||size<1)
+					while(size>5||size<1)
 					{
 						cout << "How many characters would you like?\n" << endl;
 						getline(cin, sizeStr);
 						cout << endl;
 						size = stoi(sizeStr);
-						if(size>10 ||size<1)
+						if(size>5 ||size<1)
 							cout << "Invalid size\n" << endl;
 					}
 					obj->resetUserPicks();
@@ -66,14 +66,14 @@ int main(int argc, char* argv[])
 				else if(input == "2")
 				{
 					if(!hit1)
-						cout << "Pick your characters first!" << endl;
+						cout << "Pick your characters first!\n" << endl;
 					else
 						obj->printUserList();
 				}
 				else if(input == "3")
 				{
 					if(!hit1)
-						cout << "Pick your characters first!" << endl;
+						cout << "Pick your characters first!\n" << endl;
 					else
 					{
 						obj->resetCompPicks();
@@ -83,14 +83,14 @@ int main(int argc, char* argv[])
 				else if(input == "4")
 				{
 					if(!hit1)
-						cout << "Pick your characters first!" << endl;
+						cout << "Pick your characters first!\n" << endl;
 					else
 						obj->printCompList();
 				}
 				else if(input == "5")
 				{
 					if(!hit1)
-						cout << "Pick your characters first!" << endl;
+						cout << "Pick your characters first!\n" << endl;
 					else
 					{
 						obj->battle();

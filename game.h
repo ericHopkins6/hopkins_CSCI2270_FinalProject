@@ -17,8 +17,6 @@ class game
 		int userListSize;
 		int compListSize;
 		int masterListSize;
-		void result(std::string figure);
-		void removeFigure(std::string figure, std::string list);
 	public:
 		game();
 		virtual ~game();
@@ -32,5 +30,7 @@ class game
 		void compPick();
 		void displayStats(std::string name);
 		void battle();
+		void result(figure figure1);
+		void removeFigure(figure userPick, std::string list);
 };
 #endif
