@@ -42,14 +42,14 @@ made after selecting option 5 without conceding the fight to the computer.  Opti
 will put the user back out at the open menu.
 	Inside the battle function, the first opponent of the user will be displayed. From
 here, the user can either type the name of their desired first proponent, or type 
-"concede" to quit the battle, yielding to the computer. The result of the battle will be shown.  If either character is defeated,
-that character is no longer available for battle.  If the two characters draw, both
-characters are able to fight again.  The user will then be routed back to the battle
-screen.  This process continues until one team has been completely depleted or the user
-types "concede".  When the user wins, loses, or concedes, they are put back
-team size ranging from 1 to 10. Then it will print out all the fighters, and, for the 
-size of the team selected, will prompt the user for a name of the fighter to add.
-Option 1 will also allow the user to reselect their team once this option has already
+"concede" to quit the battle, yielding to the computer. The result of the battle will 
+be shown.  If either character is defeated, that character is no longer available for 
+battle.  If the two characters draw, both characters are able to fight again.  The user 
+will then be routed back to the battle screen.  This process continues until one team has 
+been completely depleted or the user types "concede".  When the user wins, loses, or 
+concedes, they are put back team size ranging from 1 to 10. Then it will print out all 
+the fighters, and, for the  size of the team selected, will prompt the user for a name 
+of the fighter to add. Option 1 will also allow the user to reselect their team once this option has already
 been pressed.  After option one has been picked, the computer will randomally select
 characters for their team of equal size.  Option 2 will show the user's selected team.
 Option 3 will make the computer reselect, randomly, their team of equal size of the
@@ -67,14 +67,25 @@ selects option 2, concede.  When the user wins, loses, or concedes, they are put
 to the arena menu.  Both teams are completely erased at this point.
 	You are able to freely move between menus at any time. Note: Leaving the battle 
 menu before completing the match would require you to concede to the computer.
+
 Dependencies:
+
 	None.
+	
 System Requirements:
+
 	None.
+	
 Group Members:
+
 	1. Eric Hopkins
+	
 Contributors:
+
 	1. None.
+	
 Open Bugs:
+
 	1. No draw resolution feature.
+	
 	2. No ability to see the opponents before choosing your characters.
