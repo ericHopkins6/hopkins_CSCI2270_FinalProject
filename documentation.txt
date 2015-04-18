@@ -1,0 +1,83 @@
+Game.h Public Functions Documentation
+
+game();
+
+This function takes in no parameters and is to be used at the beginning of the driver.
+It initializes the list size for each list (computer, user, and master).
+It also creates the pointer for the master list, dynamically allocating it.
+
+virtual ~game();
+
+This function takes no parameters and should be used at the end of the code.
+It goes through each list and sets all the data to zero or empty strings.
+
+void resetUserPicks();
+
+This function takes in no parameters and should be called whenever the user is about to
+pick their inventory.
+It goes through the current user list and sets all the data to zero or an empty string.
+It also resets the size of the list to zero.
+
+void resetCompPicks();
+
+This function takes no parameters and should be called whenever the arena menu is pulled up
+and whenever the user wants to reset the computer's inventory.
+It goes through the current computer list and sets all the data to zero or an empty string.
+It also resets the size of the list to the size of the user list.
+
+void readIn(std::string str);
+
+This function takes in a string parameter that is the file name.
+It should be called after the initializer and before any other code.
+It parses the data in the read in file and sorts it into character attributes, parsing by commas.
+It repeats this process for the length of the file.
+
+void printMasterList();
+
+This function takes in no parameters and can be called whenever.
+It prints out the master list of all characters in the order they were read in.
+
+void printUserList();
+
+This function takes in no parameters and can be called whenever.
+It prints out the user's inventory in the order the characters were selected.
+
+void printCompList();
+
+This function takes in no parameters and can be called whenever.
+It prints out the computer's inventory in the order the characters were chosen.
+
+void userPick(int num);
+
+This function takes in an integer that is the number of characters the user wants.
+This number should be more than zero and less than six.
+This function should be called after the resetUserPicks() function is called.
+In the function, it will display the options of characters available and prompts the user 
+for a selection.  If the selection is not on the list or has already been chosen, the
+function will not add the character tot he inventory.  This process repeats until the user
+has picked a number of valid characters equal to the number taken in as a parameter.
+
+void compPick();
+
+This function takes in no parameters and should be called after resetCompPicks(), usually
+after the user selects they want the computer to reselect its characters.
+This function randomly selects characters from the master list to go in its inventory
+that are not already apart of the user's inventory.
+
+void displayStats(std::string name);
+
+This function takes in a string parameter that is the name of character the user wishes to
+learn more about.
+This function should be called after the user indicates they want to learn about a character.
+If the character exists, it displays the name and all the attributes of that character.
+Otherwise the function returns with an error message.
+
+void battle();
+
+This function takes in no parameters and should only be accessed after both user and 
+computer lists have been filled out.  The user will indicate when they are ready to enter battle.
+It first displays the user's first opponent, then prompts them for an character with which to fight,
+the user able to chose from their inventory.  If the character exists, the function calls the result()
+function and displays the result. This repeats until either list has been depleted to zero.
+If the character doesn't exist or has already been used by the user, the function loops. 
+The user can quit the function by typing "concede", losing the battle.
